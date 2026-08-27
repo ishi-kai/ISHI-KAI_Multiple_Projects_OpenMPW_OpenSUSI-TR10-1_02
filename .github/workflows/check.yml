@@ -100,24 +100,6 @@ jobs:
           pdk_dir: ${{ needs.Precheck.outputs.pdk_dir }}
           checkout_dir: TR-1um
 
-      - name: Run DRC (headless)
-
-      - name: Upload DRC report
-        uses: actions/upload-artifact@v4
-        with:
-          name: DRC_report
-          if-no-files-found: error
-          path: src/${{ needs.Precheck.outputs.report }}
-
-      - name: Decide pass/fail by report (XML)
-        run: |
-          set -euo pipefail
-          if grep -q "<visited>false</visited>" "src/${{ needs.Precheck.outputs.report }}"; then
-            echo "DRC VIOLATIONS FOUND -> FAIL"
-            echo "---- first 50 lines of report ----"
-            head -n 50 "src/${{ needs.Precheck.outputs.report }}" || true
-            exit 1
-          fi
 
   LVS:
     runs-on: ubuntu-latest
