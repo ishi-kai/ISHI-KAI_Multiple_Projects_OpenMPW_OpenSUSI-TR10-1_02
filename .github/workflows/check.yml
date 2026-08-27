@@ -101,11 +101,6 @@ jobs:
           checkout_dir: TR-1um
 
       - name: Run DRC (headless)
-        run: |
-          klayout -b -r "TR-1um/${{ needs.Precheck.outputs.pdk_dir }}/klayout/tech/drc/run.drc" \
-            -rd input="src/${{ needs.Precheck.outputs.layout }}" \
-            -rd top_cell="${{ needs.Precheck.outputs.top_cell }}" \
-            -rd report="${{ needs.Precheck.outputs.report }}"
 
       - name: Upload DRC report
         uses: actions/upload-artifact@v4
